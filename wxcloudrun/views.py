@@ -4,9 +4,19 @@ import logging
 from django.http import JsonResponse
 from django.shortcuts import render
 from wxcloudrun.models import Counters
-
+from django.shortcuts import render
+from django.http import HttpResponse
 
 logger = logging.getLogger('log')
+
+
+def chatbot_view(request):
+    if request.method == 'POST':
+        user_input = request.POST.get('user_input')
+        # 调用机器人的API处理用户输入
+        response = chatbot_response(user_input)
+        return HttpResponse(response)
+    return render(request, 'chatbot/chatbot.html')
 
 
 def index(request, _):
